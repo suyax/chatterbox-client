@@ -1,19 +1,28 @@
 // YOUR CODE HERE:
 var parseURL = "https://api.parse.com/1/classes/chatterbox";
 
-var displayCount = 10;
+function escapeHtml(str) {
+    var div = document.createElement('div');
+    div.appendChild(document.createTextNode(str));
+    return div.innerHTML;
+};
+
+
+var displayCount = 30;
 
 var app = {};
+var friends = [];
+var rooms = {};
 
 user = window.location.search.slice(10);
 
 app.init = function(){
   $(document).ready(function(){
-    $input = $('<input type = "text" span = "chatTextForm" name = "postChat">');
+    $input = $('<input type = "text" class = "chatTextForm" name = "postChat">');
     $submitButton = $('<input type ="submit" class ="submit" value = "submit">');
     $('#send').append($input);
     $('#send').append($submitButton);
-    app.addRoom("Lobby");
+    app.fetch();
 
     $(document).on('click','.username',function(){
       app.addFriend($(this).text());
@@ -37,7 +46,13 @@ app.fetch = function(){
     // data: {format:'json'},
     contentType: 'application/json',
     success: function (data) {
-      console.log('First Message' + data.results[0].username);
+      for(var i = displayCount - 1; i >= 0; i--){
+        app.addMessage(data.results[i]);
+        rooms[escapeHtml(data.results[i].roomname)] === rooms[escapeHtml(data.results[i].roomname)]++ || 1;
+      }
+      for(var key in rooms){
+        app.addRoom(key);
+      }
     },
     error: function (data) {
       // See: https://developer.mozilla.org/en-US/docs/Web/API/console.error
@@ -58,12 +73,12 @@ app.clearMessages = function(){
 
 app.addMessage = function (message) {
   var $message = $('<div class="message"></div>');
-  var $user = $('<div class="username"></div>');
-  $user.text(message.username);
-  var $text = $('<div class="text"></div>');
-  $text.text(message.text);
-  var $room = $('<div class="room"></div>');
-  $room.text(message.roomname);
+  var $user = $('<span class="username"></div>');
+  $user.text(escapeHtml(message.username));
+  var $text = $('<span class="text"></div>');
+  $text.text(escapeHtml(message.text));
+  var $room = $('<span class="room"></div>');
+  $room.text(escapeHtml(message.roomname));
   $message.append('Room: ');
   $message.append($room);
   $message.append(' Username: ');
@@ -84,7 +99,7 @@ app.addRoom = function (room) {
 
 
 app.addFriend = function(friend) {
-
+friends.push(friend);
 }
 
 app.send = function(message){  

@@ -6,11 +6,12 @@ body {
 }
 
 #main, #chats {
-    width: 500px;
+    width: 800px;
     margin: auto;
     text-align: left;
     background: white;
-    padding: 50px 60px;
+    padding-left: 50px;
+/*    padding: 50px 60px;*/
     border: solid #ddd;
     border-width: 0 1px 1px 1px;
 }
@@ -49,7 +50,6 @@ body {
 form {
     padding: 20px;
     padding-left: 0;
-    margin-bottom: 20px;
 }
 
 form input[type=text] {
@@ -60,11 +60,12 @@ form input[type=text] {
 }
 
 #chats {
-    padding: 5px;
+    margin-top:20px;
+    width:800px;
+    padding: 50px;
     margin-bottom: 5px;
     background-color: #eee;
     float:left;
-    display: flex;
 }
 
 #chats .username {
@@ -86,5 +87,8 @@ form input[type=text] {
 }
 
 .message {
-    display:flex;
+}
+
+select {
+    margin-bottom:10px;
 }
