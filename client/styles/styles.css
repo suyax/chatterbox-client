@@ -59,20 +59,19 @@ form input[type=text] {
     padding: 5px;
 }
 
-#chats {
-    margin-top:20px;
+.message {
+    margin-top:5px;
     width:800px;
-    padding: 50px;
     margin-bottom: 5px;
     background-color: #eee;
     float:left;
 }
 
-#chats .username {
+.message .username {
     font-weight: 800;
 }
 
-#chats:hover {
+.message:hover {
     background-color: #ddd;
 }
 
@@ -86,9 +85,14 @@ form input[type=text] {
     padding: 10px;
 }
 
-.message {
+.friend {
+    font-weight:bold;
+    color:red;
 }
 
 select {
     margin-bottom:10px;
+    position: relative;
+    left: 500px;
 }
+
